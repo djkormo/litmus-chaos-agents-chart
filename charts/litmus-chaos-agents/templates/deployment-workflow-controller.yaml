@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: workflow-controller
-  namespace: litmus-system
+  namespace: {{ .Release.Namespace }}
 spec:
   selector:
     matchLabels:

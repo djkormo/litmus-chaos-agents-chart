@@ -11,7 +11,7 @@ metadata:
     app.kubernetes.io/managed-by: kubectl
     name: litmus
   name: chaos-operator-ce
-  namespace: litmus-system
+  namespace: {{ .Release.Namespace }}
 spec:
   replicas: 1
   selector:
