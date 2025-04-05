@@ -4,7 +4,7 @@ metadata:
   labels:
     app: event-tracker
   name: event-tracker
-  namespace: litmus-system
+  namespace: {{ .Release.Namespace }}
 spec:
   replicas: 1
   selector:
