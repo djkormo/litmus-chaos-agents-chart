@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: event-tracker
+  name: event-tracker
+  namespace: litmus-system
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: event-tracker
+  template:
+    metadata:
+      labels:
+        app: event-tracker
+    spec:
+      tolerations: []
+      
+      #{NODE_SELECTOR}
+      serviceAccountName: litmus
+      containers:
+        - image: litmuschaos.docker.scarf.sh/litmuschaos/litmusportal-event-tracker:3.14.0
+          imagePullPolicy: Always
+          securityContext:
+            runAsUser: 2000
+            allowPrivilegeEscalation: false
+          name: event-tracker
+          envFrom:
+            - configMapRef:
+                name: subscriber-config
+            - secretRef:
+                name: subscriber-secret
+          env:
+            - name: INFRA_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+          resources:
+            requests:
+              memory: "300Mi"
+              cpu: "125m"
+              ephemeral-storage: "500Mi"
+            limits:
+              memory: "500Mi"
+              cpu: "225m"
+              ephemeral-storage: "1Gi"

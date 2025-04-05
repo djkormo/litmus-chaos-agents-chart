@@ -1,0 +1,16 @@
+{{- if .Values.rbac.install }}
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: infra-ops-role
+  namespace: {{ .Release.Namespace }}
+rules:
+  - apiGroups: [ "" ]
+    resources: [ "secrets" ]
+    verbs: [ "get", "create", "update", "patch" ]
+
+  - apiGroups: [ "" ]
+    resources: [ "configmaps"]
+    verbs: ["get", "create", "update", "patch", "list", "watch" ]
+
+{{- end  }}

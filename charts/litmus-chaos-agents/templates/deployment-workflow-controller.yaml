@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: workflow-controller
+  namespace: litmus-system
+spec:
+  selector:
+    matchLabels:
+      app: workflow-controller
+  template:
+    metadata:
+      labels:
+        app: workflow-controller
+    spec:
+      tolerations: []
+      
+      #{NODE_SELECTOR}
+      containers:
+        - args:
+            - --configmap
+            - workflow-controller-configmap
+            - --executor-image
+            -  litmuschaos.docker.scarf.sh/litmuschaos/argoexec:v3.3.1
+            - --namespaced
+            - --container-runtime-executor
+            -  k8sapi
+          command:
+            - workflow-controller
+          image: litmuschaos.docker.scarf.sh/litmuschaos/workflow-controller:v3.3.1
+          name: workflow-controller
+          securityContext:
+            runAsUser: 2000
+            allowPrivilegeEscalation: false
+          env:
+            - name: LEADER_ELECTION_DISABLE
+              value: "true"
+          resources:
+            requests:
+              memory: "300Mi"
+              cpu: "125m"
+              ephemeral-storage: "500Mi"
+            limits:
+              memory: "500Mi"
+              cpu: "225m"
+              ephemeral-storage: "1Gi"
+      serviceAccountName: litmus

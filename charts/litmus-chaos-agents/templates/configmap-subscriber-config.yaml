@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: subscriber-config
+  namespace: {{ .Release.Namespace }}
+data:
+  SERVER_ADDR: http://localhost:31674/api/query
+  INFRA_SCOPE: cluster
+  VERSION: 3.14.0
+  START_TIME: "1742678427545"
+  SKIP_SSL_VERIFY: "false"
+  CUSTOM_TLS_CERT: ""
+  IS_INFRA_CONFIRMED: "false"
+  COMPONENTS: |
+    DEPLOYMENTS: ["app=chaos-exporter", "name=chaos-operator", "app=event-tracker", "app=workflow-controller"]

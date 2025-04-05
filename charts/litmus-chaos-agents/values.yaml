@@ -1,0 +1,7 @@
+# Whether to install Custom Resource Definitions (CRDs).
+crd:
+  install: false
+# Whether to install RBAC resources (ServiceAccount, ClusterRole, ClusterRoleBinding).  
+rbac:
+  install: false 
+

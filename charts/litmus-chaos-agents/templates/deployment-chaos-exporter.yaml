@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: chaos-exporter
+    release: prometheus-stack
+  name: chaos-exporter
+  namespace: litmus-system
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: chaos-exporter
+  template:
+    metadata:
+      labels:
+        app: chaos-exporter
+        release: prometheus-stack
+    spec:
+      tolerations: []
+      
+      #{NODE_SELECTOR}
+      containers:
+        - image: litmuschaos.docker.scarf.sh/litmuschaos/chaos-exporter:3.14.0
+          imagePullPolicy: Always
+          name: chaos-exporter
+          securityContext:
+            runAsUser: 2000
+            allowPrivilegeEscalation: false
+          ports:
+            - containerPort: 8080
+              name: tcp
+          env:
+            - name: TSDB_SCRAPE_INTERVAL
+              value: '10'
+            - name: INJECTION_TIME_FILTER
+              value: 'disable'
+          resources:
+            requests:
+              memory: "300Mi"
+              cpu: "125m"
+              ephemeral-storage: "500Mi"
+            limits:
+              memory: "500Mi"
+              cpu: "225m"
+              ephemeral-storage: "1Gi"
+      serviceAccountName: litmus

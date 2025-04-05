@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: workflow-controller-configmap
+  namespace: {{ .Release.Namespace }}
+data:
+  containerRuntimeExecutor: k8sapi
+  executor: |
+    imagePullPolicy: IfNotPresent
+  instanceID: a56d3cf8-04d4-41c3-95ac-32f3aa1fbca2
