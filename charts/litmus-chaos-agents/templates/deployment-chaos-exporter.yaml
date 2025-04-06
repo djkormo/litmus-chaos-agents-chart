@@ -1,3 +1,4 @@
+{{- if .Values.chaosExporter.enabled }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -21,7 +22,7 @@ spec:
       
       #{NODE_SELECTOR}
       containers:
-        - image: litmuschaos.docker.scarf.sh/litmuschaos/chaos-exporter:3.14.0
+        - image: {{ .Values.chaosExporter.image }}
           imagePullPolicy: Always
           name: chaos-exporter
           securityContext:
@@ -44,4 +45,6 @@ spec:
               memory: "500Mi"
               cpu: "225m"
               ephemeral-storage: "1Gi"
-      serviceAccountName: litmus
+      serviceAccountName: {{ .Values.rbac.serviceAccountName }}
+
+{{- end  }}

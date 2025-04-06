@@ -1,0 +1,8 @@
+# See https://github.com/helm/chart-testing#configuration
+remote: origin
+target-branch: main
+chart-dirs:
+  - charts/litmus-chaos-agents
+#chart-repos:
+#  - litmus-chaos-agents=https://djkormo.github.io/litmus-chaos-agents/
+helm-extra-args: --timeout 200s

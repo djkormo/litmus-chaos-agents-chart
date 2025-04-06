@@ -1,4 +1,5 @@
 {{- if .Values.rbac.install }}
+{{- if eq "cluster" .Values.configuration.scope }}
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
@@ -93,4 +94,5 @@ rules:
     resources: ["nodes"]
     verbs: ["patch", "get", "list", "update"]
 
+{{- end  }}
 {{- end  }}
