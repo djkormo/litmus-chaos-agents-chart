@@ -1,3 +1,4 @@
+{{- if .Values.chaosOperator.enabled }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -29,13 +30,13 @@ spec:
         app.kubernetes.io/managed-by: kubectl
         name: chaos-operator
     spec:
-      serviceAccountName: litmus
+      serviceAccountName: {{ .Values.rbac.serviceAccountName }}
       tolerations: []
       
       #{NODE_SELECTOR}
       containers:
         - name: chaos-operator
-          image: litmuschaos.docker.scarf.sh/litmuschaos/chaos-operator:3.14.0
+          image: {{ .Values.chaosOperator.image }}
           command:
             - chaos-operator
           args:
@@ -46,7 +47,7 @@ spec:
             allowPrivilegeEscalation: false
           env:
             - name: CHAOS_RUNNER_IMAGE
-              value: litmuschaos.docker.scarf.sh/litmuschaos/chaos-runner:3.14.0
+              value: {{ .Values.chaosOperator.chaosRunnerImage }}
             - name: WATCH_NAMESPACE
               value: ''
             - name: POD_NAME
@@ -68,3 +69,5 @@ spec:
               memory: "500Mi"
               cpu: "225m"
               ephemeral-storage: "1Gi"
+
+{{- end  }}

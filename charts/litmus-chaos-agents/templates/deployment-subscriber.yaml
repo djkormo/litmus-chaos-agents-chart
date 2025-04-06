@@ -1,3 +1,4 @@
+{{- if .Values.chaosSubscriber.enabled }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -14,13 +15,13 @@ spec:
       labels:
         app: subscriber
     spec:
-      serviceAccountName: litmus
+      serviceAccountName: {{ .Values.rbac.serviceAccountName }}
       tolerations: []
       
       #{NODE_SELECTOR}
       containers:
         - name: subscriber
-          image: litmuschaos.docker.scarf.sh/litmuschaos/litmusportal-subscriber:3.14.0
+          image: {{ .Values.chaosSubscriber.image }}
           imagePullPolicy: Always
           securityContext:
             runAsUser: 2000
@@ -44,3 +45,5 @@ spec:
               memory: "500Mi"
               cpu: "225m"
               ephemeral-storage: "1Gi"
+
+{{- end  }}

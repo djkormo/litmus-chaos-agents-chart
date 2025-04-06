@@ -12,7 +12,7 @@ roleRef:
   name: infra-ops-role
 subjects:
   - kind: ServiceAccount
-    name: litmus-admin
+    name: {{ .Values.rbac.serviceAccountAdminName }}
     namespace: {{ .Release.Namespace }}
 
 {{- end  }}
