@@ -1,0 +1,14 @@
+apiVersion: v1
+entries:
+  litmus-chaos-agents:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2025-04-08T21:06:59.692721885Z"
+    description: A Helm chart for Kubernetes
+    digest: c81441647f07a6c8d1773027a3b8d095d5a62b873a3fa6e52dc80abe0f638898
+    name: litmus-chaos-agents
+    type: application
+    urls:
+    - https://github.com/djkormo/litmus-chaos-agents-chart/releases/download/litmus-chaos-agents-0.0.1/litmus-chaos-agents-0.0.1.tgz
+    version: 0.0.1
+generated: "2025-04-08T21:06:59.692732625Z"
