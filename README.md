@@ -13,4 +13,8 @@ NAME                                    CHART VERSION   APP VERSION     DESCRIPT
 litmus-chaos-agent/litmus-chaos-agents  0.0.1           1.16.0          A Helm chart for Kubernetes
 </pre>
 
+Back to github 
+
+https://github.com/djkormo/litmus-chaos-agents-chart
+
 ![obraz](https://github.com/user-attachments/assets/44a3ccb1-fcc6-495a-a8e7-e3216cf2cf23)
